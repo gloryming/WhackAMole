@@ -53,7 +53,6 @@ bool HelloWorld::init()
     }
 
     _winSize = CCDirector::sharedDirector()->getWinSize();
-    CCLOG("width =%f, height = %f", _winSize.width, _winSize.height);
     
     // Add background
     CCSprite *dirt = CCSprite::createWithSpriteFrameName("bg_dirt.png");
