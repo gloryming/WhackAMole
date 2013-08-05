@@ -25,7 +25,16 @@ GameSprite* GameSprite::gameSpriteWithFile(const char *pszFileName){
     CC_SAFE_DELETE(sprite);
     return NULL;
 }
-
+/*
+CCPoint GameSprite::convertPoint(CCPoint point){
+    if (_screenSize.height >= 768) {
+        return ccp(32 + point.x * 2, 64 + point.y * 2);
+    }
+    else{
+        return point;
+    }
+}
+*/
 void GameSprite::setUserData(GameSprite *mole, bool flag){
     mole->userData = flag;
 }

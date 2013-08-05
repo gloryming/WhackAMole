@@ -11,6 +11,12 @@ CCScene* HelloWorld::scene()
     
     // 'layer' is an autorelease object
     HelloWorld *layer = HelloWorld::create();
+    
+    
+    CCSize screenSize = CCEGLView::sharedOpenGLView()->getFrameSize();
+    CCLOG("screenSize.width =%f,  screenSize.height = %f", screenSize.width, screenSize.height);
+    
+
 
     // add layer as a child to scene
     scene->addChild(layer);
@@ -30,6 +36,7 @@ bool HelloWorld::init()
     }
 
     _winSize = CCDirector::sharedDirector()->getWinSize();
+    CCLOG("width =%f, height = %f", _winSize.width, _winSize.height);
     
     // Add background
     CCSprite *dirt = CCSprite::createWithSpriteFrameName("bg_dirt.png");
@@ -41,11 +48,13 @@ bool HelloWorld::init()
     CCSprite *lower = CCSprite::createWithSpriteFrameName("grass_lower.png");
     lower->setAnchorPoint(ccp(0.5, 1));
     lower->setPosition(ccp(_winSize.width * 0.5, _winSize.height * 0.5));
+    lower->getTexture()->setAliasTexParameters();
     this->addChild(lower, 1);
     
     CCSprite *upper = CCSprite::createWithSpriteFrameName("grass_upper.png");
     upper->setAnchorPoint(ccp(0.5, 0));
     upper->setPosition(ccp(_winSize.width * 0.5, _winSize.height * 0.5));
+    upper->getTexture()->setAliasTexParameters();
     this->addChild(upper, -1);
     
     // load sprites
@@ -53,19 +62,31 @@ bool HelloWorld::init()
     this->addChild(spriteNode, 0);
     CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("sprites.plist");
     
-    // Add mole1
-    GameSprite *mole1 = GameSprite::gameSpriteWithFile("mole_1.png");
-    mole1->setPosition(ccp(_winSize.width * 0.177, _winSize.height * 0.25));
-    spriteNode->addChild(mole1);
+    
+    float offset = 155;
+    float startPoint = 85 + offset;
+    CCSize frameSize = CCEGLView::sharedOpenGLView()->getFrameSize();
+    if ( fabs(frameSize.width - 1024) < FLT_EPSILON) {
+        offset = offset * (1024 / 480.0);
+        startPoint = startPoint * (1024 / 480.0) ;
+    }
     
     // Add mole2
     GameSprite *mole2 = GameSprite::gameSpriteWithFile("mole_1.png");
-    mole2->setPosition(ccp(_winSize.width * 0.5, _winSize.height * 0.25));
+    mole2->setPosition(HelloWorld::convertPoint(ccp(startPoint, 85)));
+    //  mole2->setPosition(HelloWorld::convertPoint(ccpAdd(mole1->getPosition(), ccp(155,0))));
     spriteNode->addChild(mole2);
+    
+    // Add mole1
+    GameSprite *mole1 = GameSprite::gameSpriteWithFile("mole_1.png");
+    mole1->setPosition(HelloWorld::convertPoint(ccpSub(mole2->getPosition(), ccp(offset, mole2->getPositionY() - 85))));
+    spriteNode->addChild(mole1);
+    
     
     // Add mole3
     GameSprite *mole3 = GameSprite::gameSpriteWithFile("mole_1.png");
-    mole3->setPosition(ccp(_winSize.width * 0.822, _winSize.height * 0.25));
+    mole3->setPosition(HelloWorld::convertPoint(ccpAdd(mole2->getPosition(), ccp(offset, 85 - mole2->getPositionY()))));
+ //   mole3->setPosition(HelloWorld::convertPoint(ccp(395, 85)));
     spriteNode->addChild(mole3);
     moles = CCArray::create(mole1, mole2, mole3, NULL);
     moles->retain();
@@ -89,6 +110,17 @@ bool HelloWorld::init()
     SimpleAudioEngine::sharedEngine()->playBackgroundMusic("whack.caf", true);
     
     return true;
+}
+
+CCPoint HelloWorld::convertPoint(CCPoint point){
+    CCSize frameSize = CCEGLView::sharedOpenGLView()->getFrameSize();
+    if ( fabs(frameSize.width - 1024) < FLT_EPSILON) {
+        return ccp(0.9 * point.x + 47, point.y + 100);
+    }
+    if (fabs(frameSize.width - 1136) < FLT_EPSILON) {
+        return ccp(point.x, point.y - 18);
+    }
+    return point;
 }
 
 void HelloWorld::tryPopMoles(CCTime dt){
