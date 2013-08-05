@@ -8,21 +8,15 @@ using namespace cocos2d;
 
 class HelloWorld : public cocos2d::CCLayer
 {
-    CCSize _winSize;
-    CCArray *moles;
-    
-    CCAnimation *laughAnim;
-    CCAnimation *hitAnim;
-    
-    CCLabelTTF *label;
-    int score;
-    int totalSpawns;
-    bool gameOver;
 
 public:
+    HelloWorld();
+    ~HelloWorld();
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
     virtual bool init();
-
+    CREATE_FUNC(HelloWorld);
+    
+    void registerWithTouchDispatcher();
     // there's no 'id' in cpp, so we recommend to return the class instance pointer
     static cocos2d::CCScene* scene();
     
@@ -30,7 +24,6 @@ public:
     void menuCloseCallback(CCObject* pSender);
 
     // preprocessor macro for "static create()" constructor ( node() deprecated )
-    CREATE_FUNC(HelloWorld);
     CCPoint convertPoint(CCPoint point);
     void tryPopMoles(CCTime dt);
     void popMole(GameSprite *mole);
@@ -38,8 +31,20 @@ public:
     CCAnimation* animationFromPlist_delay(const char *animPlist, float delay);
     void setTappable(void *sender);
     void unSetTappable(void *sender);
-    void registerWithTouchDispatcher();
+    
+    
     bool ccTouchBegan(CCTouch *touch, CCEvent *event);
+    
+private:
+    CCSize          _winSize;
+    CCArray*        _moles;
+    CCAnimation*    _laughAnim;
+    CCAnimation*    _hitAnim;
+    CCLabelTTF*     _label;
+    
+    int             _score;
+    int             _totalSpawns;
+    bool            _gameOver;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

@@ -4,6 +4,23 @@
 using namespace cocos2d;
 using namespace CocosDenshion;
 
+#pragma mark - initilize
+HelloWorld::HelloWorld()
+:_moles(NULL),
+_laughAnim(NULL),
+_hitAnim(NULL),
+_label(NULL)
+{
+    
+}
+
+HelloWorld::~HelloWorld()
+{
+    CC_SAFE_RELEASE_NULL(_moles);
+    
+    
+}
+
 CCScene* HelloWorld::scene()
 {
     // 'scene' is an autorelease object
@@ -88,22 +105,22 @@ bool HelloWorld::init()
     mole3->setPosition(HelloWorld::convertPoint(ccpAdd(mole2->getPosition(), ccp(offset, 85 - mole2->getPositionY()))));
  //   mole3->setPosition(HelloWorld::convertPoint(ccp(395, 85)));
     spriteNode->addChild(mole3);
-    moles = CCArray::create(mole1, mole2, mole3, NULL);
-    moles->retain();
+    _moles = CCArray::create(mole1, mole2, mole3, NULL);
+    _moles->retain();
     this->schedule(schedule_selector(HelloWorld::tryPopMoles), 0.5);
     
-    laughAnim = HelloWorld::animationFromPlist_delay("laughAnim.plist", 0.2);
-    hitAnim = HelloWorld::animationFromPlist_delay("hitAnim.plist", 0.04);
-    CCAnimationCache::sharedAnimationCache()->addAnimation(laughAnim, "laughAnim");
-    CCAnimationCache::sharedAnimationCache()->addAnimation(hitAnim, "hitAnim");
+    _laughAnim = HelloWorld::animationFromPlist_delay("_laughAnim.plist", 0.2);
+    _hitAnim = HelloWorld::animationFromPlist_delay("hitAnim.plist", 0.04);
+    CCAnimationCache::sharedAnimationCache()->addAnimation(_laughAnim, "_laughAnim");
+    CCAnimationCache::sharedAnimationCache()->addAnimation(_hitAnim, "hitAnim");
     
     this->setTouchEnabled(true);
     
     float margin = 10.0;
-    label = CCLabelTTF::create("score:0", "Verdana", HelloWorld::converFontSize(14.0));
-    label->cocos2d::CCNode::setAnchorPoint(ccp(1, 0));
-    label->setPosition(ccp(_winSize.width - margin, margin));
-    this->addChild(label, 10);
+    _label = CCLabelTTF::create("score:0", "Verdana", HelloWorld::converFontSize(14.0));
+    _label->cocos2d::CCNode::setAnchorPoint(ccp(1, 0));
+    _label->setPosition(ccp(_winSize.width - margin, margin));
+    this->addChild(_label, 10);
     
     SimpleAudioEngine::sharedEngine()->preloadEffect("laugh.caf");
     SimpleAudioEngine::sharedEngine()->preloadEffect("ow.caf");
@@ -111,6 +128,8 @@ bool HelloWorld::init()
     
     return true;
 }
+
+#pragma mark - logic
 
 CCPoint HelloWorld::convertPoint(CCPoint point){
     CCSize frameSize = CCEGLView::sharedOpenGLView()->getFrameSize();
@@ -124,11 +143,11 @@ CCPoint HelloWorld::convertPoint(CCPoint point){
 }
 
 void HelloWorld::tryPopMoles(CCTime dt){
-    if (gameOver) {
+    if (_gameOver) {
         return;
     }
-    label->setString(CCString::createWithFormat("score: %d", score)->getCString());
-    if (totalSpawns >= 50) {
+    _label->setString(CCString::createWithFormat("score: %d", _score)->getCString());
+    if (_totalSpawns >= 50) {
         CCSize winSize = CCDirector::sharedDirector()->getWinSize();
         
         CCLabelTTF *goLabel = CCLabelTTF::create("Level Complete", "Verdana", HelloWorld::converFontSize(48));
@@ -137,11 +156,11 @@ void HelloWorld::tryPopMoles(CCTime dt){
         this->addChild(goLabel, 10);
         goLabel->runAction(CCScaleTo::create(0.5, 1.0));
         
-        gameOver = true;
+        _gameOver = true;
     }
     GameSprite *mole;
     for (int i = 0; i < 3; i++) {
-        mole = (GameSprite *)moles->objectAtIndex(i);
+        mole = (GameSprite *)_moles->objectAtIndex(i);
         if (arc4random() % 3 == 0) {
             if (mole->numberOfRunningActions() == 0) {
                 this->popMole(mole);
@@ -165,17 +184,17 @@ void HelloWorld::unSetTappable(void *sender){
 
 void HelloWorld::popMole(GameSprite *mole){
     
-    if (totalSpawns > 50) {
+    if (_totalSpawns > 50) {
         return;
     }
-    totalSpawns++;
+    _totalSpawns++;
     
     mole->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("mole_1.png"));
     CCMoveBy *moveUp = CCMoveBy::create(0.2, ccp(0, _winSize.height * 0.25));
     CCCallFunc *setTappable = CCCallFuncN::create(this, callfuncN_selector(HelloWorld::setTappable));
     CCEaseInOut *easeMoveUp = CCEaseInOut::create(moveUp, 3.0);
     //    CCDelayTime *delay = CCDelayTime::create(0.5);
-    CCAnimation *laughN = CCAnimationCache::sharedAnimationCache()->animationByName("laughAnim");
+    CCAnimation *laughN = CCAnimationCache::sharedAnimationCache()->animationByName("_laughAnim");
     laughN->setRestoreOriginalFrame(true);
     CCAnimate *laugh = CCAnimate::create(laughN);
     CCCallFunc *unSetTappable = CCCallFuncN::create(this, callfuncN_selector(HelloWorld::unSetTappable));
@@ -198,15 +217,15 @@ void HelloWorld::registerWithTouchDispatcher(){
 
 bool HelloWorld::ccTouchBegan(CCTouch *touch, CCEvent *event){
     CCPoint touchLocation = this->convertToNodeSpace(touch->getLocation());
-    for (int i = 0; i < moles->count(); i++) {
-        GameSprite *mole = (GameSprite *)moles->objectAtIndex(i);
+    for (int i = 0; i < _moles->count(); i++) {
+        GameSprite *mole = (GameSprite *)_moles->objectAtIndex(i);
         if (mole->GameSprite::getUserData(mole) == false) {
             continue;
         }
         if (mole->boundingBox().containsPoint(touchLocation)) {
             SimpleAudioEngine::sharedEngine()->playEffect("ow.caf");
             mole->GameSprite::setUserData(mole, false);
-            score += 10;
+            _score += 10;
             
             mole->stopAllActions();
             CCAnimation *hitN = (CCAnimation *)CCAnimationCache::sharedAnimationCache()->animationByName("hitAnim");
