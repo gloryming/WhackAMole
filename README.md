@@ -11,3 +11,5 @@ I diveded this tutorial into several parts
   - Loading your sprite
   - Property lists
   - Game logic
+
+Licence: MIT
