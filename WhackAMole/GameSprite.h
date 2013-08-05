@@ -22,7 +22,6 @@ public:
     ~GameSprite();
     
     static GameSprite* gameSpriteWithFile(const char *pszFileName);
-//    CCPoint convertPoint(CCPoint point);
     void setUserData(GameSprite *mole, bool flag);
     bool getUserData(GameSprite *mole);
 };

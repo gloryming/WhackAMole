@@ -74,7 +74,6 @@ bool HelloWorld::init()
     // Add mole2
     GameSprite *mole2 = GameSprite::gameSpriteWithFile("mole_1.png");
     mole2->setPosition(HelloWorld::convertPoint(ccp(startPoint, 85)));
-    //  mole2->setPosition(HelloWorld::convertPoint(ccpAdd(mole1->getPosition(), ccp(155,0))));
     spriteNode->addChild(mole2);
     
     // Add mole1
@@ -86,7 +85,6 @@ bool HelloWorld::init()
     // Add mole3
     GameSprite *mole3 = GameSprite::gameSpriteWithFile("mole_1.png");
     mole3->setPosition(HelloWorld::convertPoint(ccpAdd(mole2->getPosition(), ccp(offset, 85 - mole2->getPositionY()))));
- //   mole3->setPosition(HelloWorld::convertPoint(ccp(395, 85)));
     spriteNode->addChild(mole3);
     moles = CCArray::create(mole1, mole2, mole3, NULL);
     moles->retain();

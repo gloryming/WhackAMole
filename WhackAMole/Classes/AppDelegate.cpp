@@ -44,8 +44,6 @@ bool AppDelegate::applicationDidFinishLaunching()
         
         resourceSize = CCSizeMake(1024, 768);
         designSize = CCSizeMake(1024, 768);
-        
-       
     }
     // if the device is iPhone
     else{
