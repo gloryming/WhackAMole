@@ -30,23 +30,22 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCDirector *pDirector = CCDirector::sharedDirector();
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
     
-    CCSize screenSize = CCDirector::sharedDirector()->getWinSizeInPixels();
+    CCSize screenSize = CCEGLView::sharedOpenGLView()->getFrameSize();
     CCFileUtils *pFileUtils = CCFileUtils::sharedFileUtils();
     std::vector<std::string> searchPaths;
     
-    CCSize designSize = CCSizeMake(512, 320);
+    CCSize designSize = CCSizeMake(480, 320);
     CCSize resourceSize;
     
     // if the device is iPad
     if (screenSize.height >= 768) {
         searchPaths.push_back("hd");
         searchPaths.push_back("sd");
-        resourceSize = CCSizeMake(1024, 768);
         
-        // for retina iPad
-        if (screenSize.width > 1024) {
-            designSize.width = screenSize.width / 2.0;
-        }
+        resourceSize = CCSizeMake(1024, 768);
+        designSize = CCSizeMake(1024, 768);
+        
+       
     }
     // if the device is iPhone
     else{
@@ -56,10 +55,7 @@ bool AppDelegate::applicationDidFinishLaunching()
             searchPaths.push_back("sd");
             resourceSize = CCSizeMake(960, 640);
             
-            // for iPhone5
-            if (screenSize.width > 960) {
-                designSize.height = screenSize.height / 2.0;
-            }
+          
         }
         else{
             searchPaths.push_back("sd");
@@ -68,9 +64,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     }
     searchPaths.push_back("WhackAMoleSounds");
     pFileUtils->setSearchPaths(searchPaths);
-    pDirector->setContentScaleFactor(resourceSize.height / designSize.height);
+    pDirector->setContentScaleFactor(resourceSize.width / designSize.width);
     
-    CCEGLView::sharedOpenGLView()->setDesignResolutionSize(designSize.width, designSize.height, kResolutionFixedHeight);
+    
+    CCEGLView::sharedOpenGLView()->setDesignResolutionSize(designSize.width, designSize.height, kResolutionFixedWidth);
     
     // load background and foreground
     CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("background.plist");

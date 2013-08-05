@@ -31,7 +31,7 @@ public:
 
     // preprocessor macro for "static create()" constructor ( node() deprecated )
     CREATE_FUNC(HelloWorld);
-    
+    CCPoint convertPoint(CCPoint point);
     void tryPopMoles(CCTime dt);
     void popMole(GameSprite *mole);
     float converFontSize(float fontSize);

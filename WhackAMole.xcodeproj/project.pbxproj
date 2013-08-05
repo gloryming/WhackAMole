@@ -287,6 +287,7 @@
 		DE1EBC1817AB6882009AF126 /* sd in Resources */ = {isa = PBXBuildFile; fileRef = DE1EBC1617AB6882009AF126 /* sd */; };
 		DE1EBC1B17AB91D7009AF126 /* GameSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DE1EBC1917AB91D6009AF126 /* GameSprite.cpp */; };
 		DE2A124317AB55E20083B967 /* PackTextures.sh in Resources */ = {isa = PBXBuildFile; fileRef = DE2A124217AB55E20083B967 /* PackTextures.sh */; };
+		DED1A61317AF7840009FF455 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DED1A61217AF7840009FF455 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -888,6 +889,7 @@
 		DE1EBC1917AB91D6009AF126 /* GameSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameSprite.cpp; sourceTree = "<group>"; };
 		DE1EBC1A17AB91D6009AF126 /* GameSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSprite.h; sourceTree = "<group>"; };
 		DE2A124217AB55E20083B967 /* PackTextures.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = PackTextures.sh; sourceTree = "<group>"; };
+		DED1A61217AF7840009FF455 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -915,6 +917,7 @@
 		DE0B9F7A17AB463900ADF786 = {
 			isa = PBXGroup;
 			children = (
+				DED1A61217AF7840009FF455 /* Default-568h@2x.png */,
 				DE2A124217AB55E20083B967 /* PackTextures.sh */,
 				DE0B9F9617AB463900ADF786 /* WhackAMole */,
 				DE0B9F8517AB463900ADF786 /* Frameworks */,
@@ -2211,6 +2214,7 @@
 				DE179B2117ABE69300F20A7A /* laughAnim.plist in Resources */,
 				DE179B2317ABE82800F20A7A /* hitAnim.plist in Resources */,
 				DE179B2517ABFE7100F20A7A /* WhackAMoleSounds in Resources */,
+				DED1A61317AF7840009FF455 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2549,6 +2553,7 @@
 				GCC_PREFIX_HEADER = WhackAMole/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = WhackAMole/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/WhackAMole/libs/cocos2dx/platform/third_party/ios/libraries\"",
@@ -2575,6 +2580,7 @@
 				GCC_PREFIX_HEADER = WhackAMole/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = WhackAMole/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/WhackAMole/libs/cocos2dx/platform/third_party/ios/libraries\"",
