@@ -52,3 +52,17 @@ In SKD samples there is a HelloCpp project. And it shows us how to use multi-res
 
 Next we take a horizontal screen game as example, which has the same fundamental configuration, but exchange the width and the height.
 
+Cocos2d-x has the following two logical processes to display picture.
+
+From resource resolution to design resolution, then from design resolution to screen resolution.
+
+As following picture:
+
+![](reources/pc1.png)
+
+API ```setContentScaleFactor()``` and ```setSearchPaths()``` control the first conversion process. However, ```setDesignResolutionSize()``` 
+controls the second conversion process. The final display effect depended on these two processes.
+
+###Switch from resource resolution to design resolution
+
+```setSearchPaths()``` should make appropriate settings via the screen resolution, the HellowCpp show us a simple soltion but it may not the best.
