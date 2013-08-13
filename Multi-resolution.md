@@ -24,7 +24,11 @@ From Cocos2d-x 2.13 two new resolution policy - kResolutionFixedHeight and kReso
 Two articles - [Multi_resolution_support](http://www.cocos2d-x.org/projects/Cocos2d-x/wiki/Multi_resolution_support) and [Mechanism_of_loading_resources](http://www.cocos2d-x.org/projects/Cocos2d-x/wiki/Mechanism_of_loading_resources), 
 in official site give presentation about multi-resolution.
 
-But this article fucos on the Cocos2d-x multi-resolution technique from the perspective of engine user, which will give you a fully understanding of how to deal with multi-resolution 
+But this article focus on the Cocos2d-x multi-resolution technique from the perspective of engine user, which will give you a fully understanding of how to deal with multi-resolution 
 with Cocos2d-x.
 
-###From Retina resolution to 
+###Switch from Retina resolution to design resolution
+
+Before Cocos2d-x 2.04, Retina is a resolution concept comes from Cocos2d-iPhone. To support Retina iPhone, Cocos2d-iPhone use -hd extension to distinct normal iPhone resources and Retina 
+iPhone resources. When desinging the game, we actually use point coordinate instead of pixel coordinate. This kind of point as same as the concept of the native - that is you don't have to 
+change your code and you can run yuor App on retina iPhone that used run on normal iPhone. Only the picture are vague, but once import the picture with @2x extension
