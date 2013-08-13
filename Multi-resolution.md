@@ -31,4 +31,24 @@ with Cocos2d-x.
 
 Before Cocos2d-x 2.04, Retina is a resolution concept comes from Cocos2d-iPhone. To support Retina iPhone, Cocos2d-iPhone use -hd extension to distinct normal iPhone resources and Retina 
 iPhone resources. When desinging the game, we actually use point coordinate instead of pixel coordinate. This kind of point as same as the concept of the native - that is you don't have to 
-change your code and you can run yuor App on retina iPhone that used run on normal iPhone. Only the picture are vague, but once import the picture with @2x extension
+change your code and you can run yuor App on retina iPhone that used run on normal iPhone. Only the picture are vague, but once import the picture with @2x extension iOS will load high definition 
+resources automatically to support retina display.
+
+Using point coordinate can solve multi-resolution in some degree, however, as iPhone5 and New iPad released there are five set of resources you need to prepare if you want to fit every kind of iOS devive and it's very annoying.
+But point coordinate can not solve the problem and the situation is worse in Android platform.
+
+Design resoltion concept is supposed to evolve from point coordinate, which aims block the screen resolution. Locate the spires on design resolution and then implement it is not easy. Cocos2d-x provide a set of relative APIs and five
+multi-resolution strategies but which kind of strategy is what we really need. Let's explore it together!
+
+###Resource resolution, Design resolution and Screen resolution
+
+Resources width refered to RW, Resources heitht refered to RH
+
+Design width refered to DW, Design height refered to DW
+
+Screen width refered to SW, Screen height refered to SH
+
+In SKD samples there is a HelloCpp project. And it shows us how to use multi-resolution strategy.
+
+Next we take a horizontal screen game as example, which has the same fundamental configuration, but exchange the width and the height.
+
