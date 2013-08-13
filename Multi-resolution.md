@@ -58,7 +58,7 @@ From resource resolution to design resolution, then from design resolution to sc
 
 As following picture:
 
-![](reources/pc1.png)
+![](resources/pc1.png)
 
 API ```setContentScaleFactor()``` and ```setSearchPaths()``` control the first conversion process. However, ```setDesignResolutionSize()``` 
 controls the second conversion process. The final display effect depended on these two processes.
