@@ -66,3 +66,13 @@ controls the second conversion process. The final display effect depended on the
 ###Switch from resource resolution to design resolution
 
 ```setSearchPaths()``` should make appropriate settings via the screen resolution, the HellowCpp show us a simple soltion but it may not the best.
+
+```setContentScaleFactor()``` decide the factor of the picture that displays in screen. But this the parameters of this API is not according to the
+wide ratio of recource and screen or height ratio of recource and screen. The design of Cocos2d-x engine is trying to prevent developers focus on screen 
+directly, so the factor is wide ratio of resource and screen or height ratio of resource and screen.
+
+```setContentScaleFactor()``` usually has two ways to set parameter. RH/DH or RW/DW different factor has different degree of nagtive effect.
+
+Look the picture below:
+
+![](resources/pc2.png)
