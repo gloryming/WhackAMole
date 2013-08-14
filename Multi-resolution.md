@@ -76,3 +76,40 @@ directly, so the factor is wide ratio of resource and screen or height ratio of 
 Look the picture below:
 
 ![](resources/pc2.png)
+
+kResolutionShowAll: 
+
+*According to the width and height of screen and design resolution to determine the scale factor, choose the smaller value of factor as the scale factor. 
+This can make sure that all the design area can display on screen, but still this will leave some invisable area - black line.*
+
+kResolutionExactFit:
+
+*Set the wide ratio of the screen and design resolution as scale factor in X axis, set the height ratio of the screen and design resolution as scale factor in Y axis.*
+
+kResolutionNoBorder:
+
+*According to the width and height of screen and design resolution to determine the scale factor, choose the larger value of factor as the scale factor. 
+This can make sure that one side can always display on screen, but another side will stretch out of the side*
+
+Official used to recommand developers using kResolutionNoBorder strategy, but this solution didn't stretch the picture in one side, however, when Cocos2d-x 2.13 introduced 
+two new strategies will replace kResolutionNoBorder.
+
+Both kResolutionFixedHeight and kResolutionFixedWidth will correct the design resolution in the function, to ensure that the design resolution won't be stretch to all the screen.
+
+As follow picture:
+
+![](resources/pc3.png)
+
+kResolutionFixedHeight:
+
+*Ensure the height of the design resolution didn't change, in the meantime refine the width of the design resolution according to the screen*
+
+kResolutionFixedWidth:
+
+*Keep the width of the design resolution as it was, and refine the height of the design resolution according to the screen resolution*
+
+**Combine two processes**
+
+There two chooses in the first process, and five in the second process. So there are 10 combinations.
+
+So how should we do? 
