@@ -1,4 +1,4 @@
-#Multi-resolution adaptation fully resolution
+#Detailed explanation of Multi-resolution adaptation
 
 ###Overview
 
@@ -77,6 +77,25 @@ Look the picture below:
 
 ![](resources/pc2.png)
 
+Using height ratio as scale factor, ensure the vertical direction of the background resouece dislays all range of design resolution.
+
+Using width ratio as scale factor, ensure the horizontal direction of the background resource displays all range of design resolution.
+
+###Switch from design resolution to screen resolution
+
+```setDesignResolutionSize(DW, DH, resolutionPolicy)```
+
+There three parameters - design resolution width, design resolution height, resolution strategy. 
+
+First two parameters are easy to understand, but the last one will take us some time.
+
+Let's take a glance of kResolutionExactFit，kResolutionNoBorder and kResolutionShowAll. And we are going to talk about the new strategies 
+that Cocos2d-x 2.1.3 introduces later. Three strategies of design resolution are input value and didn't refine in strategy.
+
+Look the picture:
+
+![](resources/pc3.png)
+
 kResolutionShowAll: 
 
 *According to the width and height of screen and design resolution to determine the scale factor, choose the smaller value of factor as the scale factor. 
@@ -98,7 +117,7 @@ Both kResolutionFixedHeight and kResolutionFixedWidth will correct the design re
 
 As follow picture:
 
-![](resources/pc3.png)
+![](resources/pc4.png)
 
 kResolutionFixedHeight:
 
@@ -112,4 +131,37 @@ kResolutionFixedWidth:
 
 There two chooses in the first process, and five in the second process. So there are 10 combinations.
 
-So how should we do? 
+So how should we choose the strategy? Choose a strategy that sacrifice display effect or choose one that sacrifice some display area?
+
+For sacrifice some display area of a side instance, we'll show you how these two processes work.
+
+In our game, we need to display the height of the background picture completely, however, the width can be cut.
+
+To reach this goal, the width have to be cut during the two processes.
+
+- First process we choose ```setContentScaleFactor(RH/DH)```
+- Second process we choose ```kResolutionNoBorder()``` and ```kResolutionFixedHeight()```
+
+To demonstrate the difference of kResolutionNoBorder and kResolutionFixedHeight, we need to introduce VisibleOrigin and VisibleSize.
+
+![](resources/pc5.png)
+
+For kResolutionNoBorder, design resolution is invisable area, when we locate the sprite we need the help of VisibleOrigin and VisibleSize.
+
+However, kResolutionFixedHeight is different, design resolution is visable area, VisibleOrigin is always (0,0).
+```getVisibleSize() = getWinSize()```，kResolutionFixedHeight reaches the same result, but simplify the code.
+
+kResolutionFixedHeight and kResolutionFixedWidth are evlove from kResolutionNoBorder, it's highly recommand you use these two strategies in 
+your new project.
+
+###Conclusions
+
+kResolutionFixedHeight:
+
+*This strategy is appropriate for the game, which the height needs to be full stuff, and wide can be cut. It should use with ```setContentScaleFactor(RH/DH)```*
+
+kResolutionFixedWidth:
+
+*This strategy is appropriate for the game, which the wide needs to be full stuff, and height can be cut.，It should use with ```setContentScaleFactor(RW/DW)```*
+
+####Tips: Correct set the height in AppMacros.h and notice the difference of the horizontal screen game and vertical screen game.
