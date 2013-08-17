@@ -1,6 +1,6 @@
 #Detailed explanation of Multi-resolution adaptation
 
-###Overview
+###Overview - Translated from u0u0
 
 Since Cocos2d-x 2.04 released, Cocos2d-x introduced a set of resolutions for multi-resolution. It also deprecated some APIs about Retina and proposed a concept - design resolution.
 
