@@ -4,7 +4,7 @@
 //
 //  Created by 郭 一鸣 on 13-8-2.
 //
-//
+//  This is GameSprite Class
 
 #ifndef __WhackAMole__GameSprite__
 #define __WhackAMole__GameSprite__
